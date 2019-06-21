@@ -1,10 +1,12 @@
 {
-	"name": "potree_desktop",
+	"name": "Point-Cloud-Viewer",
+	"productName": "Point Cloud Viewer",
 	"version": "0.1.0",
 	"description": "A WebGL Point Cloud Viewer",
 	"main": "main.js",
 	"scripts": {
-		"start": "electron ."
+		"start": "electron .",
+		"buildapp": "electron-packager . PCV --overwrite --asar=true --icon=assets/tree.ico --out=release-builds"
 	},
 	"repository": "https://github.com/potree/potree",
 	"keywords": [
@@ -12,9 +14,11 @@
 		"point cloud viewer",
 		"lidar viewer"
 	],
-	"author": "Markus Schuetz",
-	"license": "no license available at this time",
+	"author": "Lerry William",
+	"license": "BSD",
 	"devDependencies": {
-		"electron": "~1.7.8"
+		"asar": "^1.0.0",
+		"electron": "^1.8.8",
+		"electron-packager": "^12.2.0"
 	}
 }
