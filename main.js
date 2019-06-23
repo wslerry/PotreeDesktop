@@ -14,7 +14,7 @@ let mainWindow
 
 function createWindow () {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({width: 1600, height: 1200})
+	mainWindow = new BrowserWindow({width: 900, height: 800})
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(url.format({
@@ -23,10 +23,9 @@ function createWindow () {
 		slashes: true
 	}));
 
-
 	//let menu = new Menu();
 	//let menuItemWindow = new MenuItem({label: "Window"});
-	//let menuItemToggleDevTools = new MenuItem({label: 'Toggle Developer Tools', click() { 
+	//let menuItemToggleDevTools = new MenuItem({label: 'Toggle Developer Tools', click() {
 	//		//remote.getCurrentWindow().toggleDevTools();
 	//		mainWindow.webContents.toggleDevTools();
 	//	}});
@@ -39,13 +38,20 @@ function createWindow () {
 		{
 			label: "Window",
 			submenu: [
+				{label: "Home", click() { mainWindow.loadURL(url.format({pathname: path.join(__dirname, 'index.html')})) }},
 				{label: "Reload", click() { mainWindow.webContents.reloadIgnoringCache() }},
 				{label: "Toggle Developer Tools", click() { mainWindow.webContents.toggleDevTools() }},
+			]
+		},
+		{
+			label: "About",
+			submenu: [
+				{label: "Developer", click() { mainWindow.loadURL('https://lerryws.xyz') }},
 			]
 		}
 	];
 
-	
+
 
 	let menu = Menu.buildFromTemplate(template);
 	mainWindow.setMenu(menu);
@@ -56,7 +62,7 @@ function createWindow () {
 	//	open(url);
 	//});
 
-	
+
 
 
 	// require('remote').getCurrentWindow().toggleDevTools();

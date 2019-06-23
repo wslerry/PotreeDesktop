@@ -16986,20 +16986,66 @@ void main() {
 			};
 			ol.inherits(DownloadSelectionControl, ol.control.Control);
 
+			// Base Maps collection
+			var basemap1 = new ol.layer.Tile({
+				title: 'OpenStreetMap Standard',
+				type: 'base',
+				source: new ol.source.OSM()
+			});
+
+			var basemap2 = new ol.layer.Tile({
+				title: 'ESRI World Imagery',
+				type: 'base',
+				source: new ol.source.XYZ({
+					url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+					attributions: "ESRI,"
+				})
+			});
+
+			// Overlaymap collection
+			var overlay1 = new ol.layer.Tile({
+				source: new ol.source.XYZ({
+					url: "assets/tiles/{z}/{x}/{y}.png",
+					attributions: " Lerry William"
+				})
+			});
+
+			var basemaps = [basemap2]
+
+			var overlays = [overlay1]
+
 			this.map = new ol.Map({
 				controls: ol.control.defaults({
 					attributionOptions: ({
-						collapsible: false
+						collapsible: true
 					})
-				}).extend([
-					// this.controls.zoomToExtent,
-					new DownloadSelectionControl(),
-					mousePositionControl
-				]),
+				}),
+				// controls: [
+				// 	ol.control.defaults({
+				// 		attributionOptions: ({
+				// 			collapsible: true
+				// 		})
+				// 	})
+				// ],
 				layers: [
-					new ol.layer.Tile({source: new ol.source.OSM()}),
-					// new ol.layer.Tile({source: new ol.source.OSM({
-					// 		url: "./assets/tiles/{z}/{x}/{y}.png"
+					new ol.layer.Group({
+						title: 'Base Maps',
+						layers: basemaps
+					}),
+					// new ol.layer.Group({
+					// 	title: 'Overlays',
+					// 	layers: overlays
+					// }),
+					// new ol.layer.Tile({
+					// 	source: new ol.source.XYZ({
+					// 		url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+					// 		attributions: "ArcGIS,"
+					// 	})
+					// }),
+					// new ol.layer.Tile({
+					// 	source: new ol.source.XYZ({
+					// 		url: "assets/tiles/{z}/{x}/{y}.png",
+					// 		attributions: " Lerry William"
 					// 	})
 					// }),
 					this.toolLayer,
@@ -17021,11 +17067,12 @@ void main() {
 				source: new ol.source.Vector({}),
 				style: new ol.style.Style({
 					stroke: new ol.style.Stroke({
-						color: 'rgba(0, 0, 255, 1)',
+						color: 'rgba(245, 100, 28, 1)',
 						width: 2
 					})
 				})
 			});
+
 			this.map.addLayer(this.dragBoxLayer);
 
 			let select = new ol.interaction.Select();
@@ -17169,13 +17216,13 @@ void main() {
 						color: 'rgba(255, 255, 255, 0.2)'
 					}),
 					stroke: new ol.style.Stroke({
-						color: '#0000ff',
+						color: '#f24f12',
 						width: 2
 					}),
 					image: new ol.style.Circle({
 						radius: 3,
 						fill: new ol.style.Fill({
-							color: '#0000ff'
+							color: '#f24f12'
 						})
 					})
 				})
@@ -17222,7 +17269,7 @@ void main() {
 				source: featureVector,
 				style: new ol.style.Style({
 					stroke: new ol.style.Stroke({
-						color: '#0000ff',
+						color: '#ff1700',
 						width: 2
 					})
 				})
@@ -24394,7 +24441,7 @@ ENDSEC
 				imgMenuToggle.classList.add('potree_menu_toggle');
 
 				let imgMapToggle = document.createElement('img');
-				imgMapToggle.src = new URL(Potree.resourcePath + '/icons/map_icon.png').href;
+				imgMapToggle.src = new URL(Potree.resourcePath + '/icons/map_icon2.png').href;
 				imgMapToggle.style.display = 'none';
 				imgMapToggle.onclick = e => { this.toggleMap(); };
 				imgMapToggle.id = 'potree_map_toggle';
